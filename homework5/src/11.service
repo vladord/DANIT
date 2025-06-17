@@ -1,0 +1,11 @@
+[Unit]
+Description=danit
+Documentation="No Docs"
+
+[Service]
+Environment=SERVICE_NAME=danit
+ExecStart=bash /mnt/disk2/DANIT/homework5/src/10.sh /var/log/test-systemd.log
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
