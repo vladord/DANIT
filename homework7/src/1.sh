@@ -24,7 +24,7 @@ for USER in "${USERS_TO_CREATE[@]}"; do
 echo "MAKING BACKUP"
 useradd backupdev
 mkhomedir_helper backupdev
-rsync -Hav --include ~dev1/ ~backupdev/
+rsync -Hav ~dev1/ ~backupdev/
 chown -R backupdev:backupdev ~backupdev
 echo "MAKING GROUP PROJECT"
 mkdir /home/web_project
