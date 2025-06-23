@@ -1,5 +1,5 @@
 #!/bin/bash
-
+set -v
 declare -a USERS_TO_CREATE=("dev1" "dev2" "dev3")
 echo "CREATING USERS"
 for USER in "${USERS_TO_CREATE[@]}"; do
@@ -9,9 +9,9 @@ echo "CREATING GROUPS AND POPULATING THEM"
 groupadd developers
 groupadd webmasters
 
-usermod -G developers dev1
-usermod -G developers dev2
-usermod -G webmasters dev3
+usermod -g developers dev1
+usermod -g developers dev2
+usermod -g webmasters dev3
 
 for USER in "${USERS_TO_CREATE[@]}"; do
         usermod -aG $USER $USER
@@ -24,7 +24,7 @@ for USER in "${USERS_TO_CREATE[@]}"; do
 echo "MAKING BACKUP"
 useradd backupdev
 mkhomedir_helper backupdev
-rsync -Hav ~dev1/ ~backupdev/
+rsync -Hav --include ~dev1/ ~backupdev/
 chown -R backupdev:backupdev ~backupdev
 echo "MAKING GROUP PROJECT"
 mkdir /home/web_project
