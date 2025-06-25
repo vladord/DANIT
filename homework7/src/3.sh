@@ -1,4 +1,4 @@
-et httpd port 2812 and
+set httpd port 2812 and
 use address 0.0.0.0                              # only accept connection from localhost (drop if you use M/Monit)
     allow 0.0.0.0/0.0.0.0        # allow localhost to connect to the server and
     allow admin:monit      # require user 'admin' with password 'monit'
