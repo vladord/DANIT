@@ -1,0 +1,41 @@
+Vagrant.configure("2") do |config|
+  config.vm.box = "ubuntu/focal64"
+  port = ENV["DB_PORT"] || 3306
+
+
+  config.vm.define "DB_VM" do |vm2|
+    vm2.vm.network "private_network", ip: '192.168.5.21'
+    vm2.vm.provider "virtualbox" do |vb|
+      vb.name = "DB_VM"
+      vb.cpus = 2
+      vb.memory = 2048
+      end
+  
+    vm2.vm.provision "shell", path: "DB_VM.sh", env: {
+      "DB_NAME" => ENV['DB_NAME'],
+      "DB_PASS" => ENV['DB_PASS'],
+      "DB_PORT" => port,
+      "DB_USER" => ENV['DB_USER']
+    }
+  end
+
+  config.vm.define "APP_VM" do |vm1|
+    vm1.vm.network "private_network", ip: '192.168.5.20'
+    vm1.vm.network "forwarded_port", guest: 8080, host: 8080
+    vm1.vm.provider "virtualbox" do |vb|
+      vb.name = "APP_VM"
+      vb.cpus = 2
+      vb.memory = 2048
+      end
+    vm1.vm.provision "shell", path: "APP_VM.sh", env: {
+      "DB_NAME" => ENV['DB_NAME'],
+      "DB_PASS" => ENV['DB_PASS'],
+      "DB_HOST" => '192.168.5.21',
+      "DB_PORT" => port,
+      "DB_USER" => ENV['DB_USER'],      
+      "APP_USER" => ENV['APP_USER'],
+      "APP_DIR" => ENV['APP_DIR'],
+      "PROJECT_DIR" => ENV['PROJECT_DIR']      
+      }
+    end  
+end
