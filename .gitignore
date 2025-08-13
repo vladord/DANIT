@@ -1,3 +1,5 @@
 .vscode
 .idea
 DanIT.code-workspace
+env.*
+project_demo/src/.vagrant/*
