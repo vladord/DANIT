@@ -21,7 +21,7 @@ Task
 Alphabet Class
 
 Create the Alphabet class
-Create the __init__() method, inside of which two attributes will be defined: 1) lang - language and 2) letters - list of letters. The initial values of the properties are taken from the method's input parameters.
+Create the __init__() method, inside of which two attributes will be defined: 1) lang - language and 2) letters - list of letters. The initial values of the properties are taken from the method"s input parameters.
 Create the print() method, which will print the alphabet letters to the console.
 Create the letters_num() method, which will return the number of letters in the alphabet.
 EngAlphabet Class
@@ -47,7 +47,8 @@ class Alphabet():
 
 class EngAlphabet(Alphabet):
     def __init__(self):
-        super().__init__(language = "EN", letters_list = ["a", "z"])
+        super().__init__(language = "EN", letters_list = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m",
+ "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"])
         self._letters_num=super().letters_num()
 
     def is_en_letter(self, letter_to_test):
@@ -63,7 +64,14 @@ class EngAlphabet(Alphabet):
     def example():
         return "An example text in English."
 
-english = EngAlphabet()
-english.letters_num()
-print(english.is_en_letter("A")) 
-print(english.example())
+
+def main():
+    english = EngAlphabet()
+    for letter in english.letters_list: print(letter)
+    english.letters_num()
+    print("Letter F is in letters_list: " + str(english.is_en_letter("F")))
+    print("Letter Щ is in letters_list: " + str(english.is_en_letter("Щ")))
+    print(english.example())
+
+if __name__ == '__main__':
+    main()
