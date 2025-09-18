@@ -1,0 +1,17 @@
+services:
+  rest_api:
+    build: .
+    networks:
+      - rest_api_network
+    ports:
+      - "8080:80"
+  nginx:
+    image: nginx:1.29.1-alpine-slim
+    networks:
+      - rest_api_network    
+    volumes:
+      - ./nginx/:/etc/nginx/conf.d/    
+    ports:
+      - "80:80"    
+networks:
+  rest_api_network:

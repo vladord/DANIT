@@ -1,0 +1,59 @@
+09-11 12:20 root         INFO     Jackdaws love my big sphinx of quartz.
+09-11 12:20              INFO     Retrieve All existing students (GET)
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "GET /student/All HTTP/1.1" 200 912
+09-11 12:20              INFO     Response status code: <Response [200]> 
+Data: [{'id': '2', 'firstname': 'Andriy', 'lastname': 'Tkachuk', 'age': '90'}, {'id': '3', 'firstname': 'Name', 'lastname': 'Family', 'age': '900'}, {'id': '4', 'firstname': 'Anastasia', 'lastname': 'Shalak', 'age': '19'}, {'id': '6', 'firstname': 'Artur', 'lastname': 'Snitko', 'age': '2'}, {'id': '7', 'firstname': 'Vlad', 'lastname': 'Ordynskyi', 'age': '30'}, {'id': '8', 'firstname': 'Olha', 'lastname': 'Ordynskyi', 'age': '40'}, {'id': '9', 'firstname': 'Anna', 'lastname': 'Ordynskyi', 'age': '5'}, {'id': '10', 'firstname': 'Oleh', 'lastname': 'Ordynskyi', 'age': '30'}]
+09-11 12:20              INFO     Create three students (POST)
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "POST / HTTP/1.1" 200 94
+09-11 12:20              INFO     Response status code: <Response [200]> 
+ Data: New entry: Added data {'id': 11, 'firstname': 'Vlad', 'lastname': 'Ordynskyi', 'age': '30'}
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "POST / HTTP/1.1" 200 94
+09-11 12:20              INFO     Response status code: <Response [200]> 
+ Data: New entry: Added data {'id': 12, 'firstname': 'Olha', 'lastname': 'Ordynskyi', 'age': '40'}
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "POST / HTTP/1.1" 200 93
+09-11 12:20              INFO     Response status code: <Response [200]> 
+ Data: New entry: Added data {'id': 13, 'firstname': 'Anna', 'lastname': 'Ordynskyi', 'age': '5'}
+09-11 12:20              INFO     Retrieve information about all existing students (GET)
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "GET /student/All HTTP/1.1" 200 1256
+09-11 12:20              INFO     Response status code: <Response [200]> 
+ Data: [{'id': '2', 'firstname': 'Andriy', 'lastname': 'Tkachuk', 'age': '90'}, {'id': '3', 'firstname': 'Name', 'lastname': 'Family', 'age': '900'}, {'id': '4', 'firstname': 'Anastasia', 'lastname': 'Shalak', 'age': '19'}, {'id': '6', 'firstname': 'Artur', 'lastname': 'Snitko', 'age': '2'}, {'id': '7', 'firstname': 'Vlad', 'lastname': 'Ordynskyi', 'age': '30'}, {'id': '8', 'firstname': 'Olha', 'lastname': 'Ordynskyi', 'age': '40'}, {'id': '9', 'firstname': 'Anna', 'lastname': 'Ordynskyi', 'age': '5'}, {'id': '10', 'firstname': 'Oleh', 'lastname': 'Ordynskyi', 'age': '30'}, {'id': '11', 'firstname': 'Vlad', 'lastname': 'Ordynskyi', 'age': '30'}, {'id': '12', 'firstname': 'Olha', 'lastname': 'Ordynskyi', 'age': '40'}, {'id': '13', 'firstname': 'Anna', 'lastname': 'Ordynskyi', 'age': '5'}]
+09-11 12:20              INFO     Update the age of the second student (PATCH)
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "PATCH / HTTP/1.1" 200 88
+09-11 12:20              INFO     Response status code: <Response [200]> 
+ Data: Updated entry: {'id': '2', 'firstname': 'Andriy', 'lastname': 'Tkachuk', 'age': '90'}
+09-11 12:20              INFO     Retrieve information about the second student (GET)
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "GET /student/2 HTTP/1.1" 200 117
+09-11 12:20              INFO     Response status code: <Response [200]> 
+ Data: [{'id': '2', 'firstname': 'Andriy', 'lastname': 'Tkachuk', 'age': '90'}]
+09-11 12:20              INFO     Update the fist name, last name and the age of the third student (PUT)
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "PUT / HTTP/1.1" 200 86
+09-11 12:20              INFO     Response status code: <Response [200]> 
+ Data: Updated entry: {'id': '3', 'firstname': 'Name', 'lastname': 'Family', 'age': '900'}
+09-11 12:20              INFO     Retrieve information about the third student (GET)
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "GET /student/3 HTTP/1.1" 200 115
+09-11 12:20              INFO     Response status code: <Response [200]> 
+ Data: [{'id': '3', 'firstname': 'Name', 'lastname': 'Family', 'age': '900'}]
+09-11 12:20              INFO     Retrieve All existing students (GET)
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "GET /student/All HTTP/1.1" 200 1256
+09-11 12:20              INFO     Response status code: <Response [200]> 
+ Data: [{'id': '2', 'firstname': 'Andriy', 'lastname': 'Tkachuk', 'age': '90'}, {'id': '3', 'firstname': 'Name', 'lastname': 'Family', 'age': '900'}, {'id': '4', 'firstname': 'Anastasia', 'lastname': 'Shalak', 'age': '19'}, {'id': '6', 'firstname': 'Artur', 'lastname': 'Snitko', 'age': '2'}, {'id': '7', 'firstname': 'Vlad', 'lastname': 'Ordynskyi', 'age': '30'}, {'id': '8', 'firstname': 'Olha', 'lastname': 'Ordynskyi', 'age': '40'}, {'id': '9', 'firstname': 'Anna', 'lastname': 'Ordynskyi', 'age': '5'}, {'id': '10', 'firstname': 'Oleh', 'lastname': 'Ordynskyi', 'age': '30'}, {'id': '11', 'firstname': 'Vlad', 'lastname': 'Ordynskyi', 'age': '30'}, {'id': '12', 'firstname': 'Olha', 'lastname': 'Ordynskyi', 'age': '40'}, {'id': '13', 'firstname': 'Anna', 'lastname': 'Ordynskyi', 'age': '5'}]
+09-11 12:20              INFO     Delete the first user (DELETE)
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "DELETE / HTTP/1.1" 406 50
+09-11 12:20              INFO     Response status code: <Response [406]> 
+ Data: {'message': 'Failed to find entry by id 1'}
+09-11 12:20              INFO     Retrieve All existing students (GET)
+09-11 12:20 urllib3.connectionpool DEBUG    Starting new HTTP connection (1): 127.0.0.1:80
+09-11 12:20 urllib3.connectionpool DEBUG    http://127.0.0.1:80 "GET /student/All HTTP/1.1" 200 1256
+09-11 12:20              INFO     Response status code: <Response [200]> 
+ Data: [{'id': '2', 'firstname': 'Andriy', 'lastname': 'Tkachuk', 'age': '90'}, {'id': '3', 'firstname': 'Name', 'lastname': 'Family', 'age': '900'}, {'id': '4', 'firstname': 'Anastasia', 'lastname': 'Shalak', 'age': '19'}, {'id': '6', 'firstname': 'Artur', 'lastname': 'Snitko', 'age': '2'}, {'id': '7', 'firstname': 'Vlad', 'lastname': 'Ordynskyi', 'age': '30'}, {'id': '8', 'firstname': 'Olha', 'lastname': 'Ordynskyi', 'age': '40'}, {'id': '9', 'firstname': 'Anna', 'lastname': 'Ordynskyi', 'age': '5'}, {'id': '10', 'firstname': 'Oleh', 'lastname': 'Ordynskyi', 'age': '30'}, {'id': '11', 'firstname': 'Vlad', 'lastname': 'Ordynskyi', 'age': '30'}, {'id': '12', 'firstname': 'Olha', 'lastname': 'Ordynskyi', 'age': '40'}, {'id': '13', 'firstname': 'Anna', 'lastname': 'Ordynskyi', 'age': '5'}]
