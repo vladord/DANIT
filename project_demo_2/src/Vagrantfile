@@ -1,0 +1,63 @@
+Vagrant.configure("2") do |config|
+
+  config.vm.box = "ubuntu/focal64"
+
+
+  config.vm.define "jenkins_master" do |jenkins_master|
+    jenkins_master.vm.network "public_network", ip: "172.16.0.10", bridge: "1"
+    jenkins_master.vm.network "forwarded_port", guest: 8080, host: 8080
+    #jenkins_master.vm.network "forwarded_port", guest: 3000, host: 3000
+    jenkins_master.vm.synced_folder "./jenkins_master", "/home/vagrant/jenkins_worker_ssh"
+
+    jenkins_master.vm.provider "virtualbox" do |vb|
+      vb.cpus = "2"
+      vb.gui = true
+      vb.memory = "4096"
+      end
+
+    jenkins_master.vm.provision "shell", inline: <<-SHELL
+      hostnamectl set-hostname jenkins-master --static --no-ask-password
+      apt update
+      apt install net-tools fontconfig openjdk-21-jre ca-certificates curl docker.io -y
+      usermod -aG docker vagrant
+      systemctl restart docker
+      mkdir /etc/apt/keyrings/
+
+      wget -O /etc/apt/keyrings/jenkins-keyring.asc \
+        https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+      echo "deb [signed-by=/etc/apt/keyrings/jenkins-keyring.asc]" \
+        https://pkg.jenkins.io/debian-stable binary/ | sudo tee \
+        /etc/apt/sources.list.d/jenkins.list > /dev/null
+      apt-get update
+      apt-get install jenkins -y
+      mkdir /home/vagrant/jenkins_worker_ssh/
+      sudo -u vagrant ssh-keygen -f /home/vagrant/.ssh/jenkins_worker -N ""
+      cp /home/vagrant/.ssh/jenkins_worker.pub /home/vagrant/jenkins_worker_ssh/
+      cat /var/lib/jenkins/secrets/initialAdminPassword > /home/vagrant/jenkins_worker_ssh/jenkins_password
+    SHELL
+    end
+
+  config.vm.define "jenkins_worker" do |jenkins_worker|
+    jenkins_worker.vm.network "public_network", ip: "172.16.0.11", bridge: "1"
+    jenkins_worker.vm.network "forwarded_port", guest: 3000, host: 3000
+    jenkins_worker.vm.synced_folder "./jenkins_master", "/home/vagrant/jenkins_worker_ssh"
+
+    jenkins_worker.vm.provider "virtualbox" do |vb|
+      vb.cpus = "2"
+      vb.gui = true
+      vb.memory = "4096"
+      end
+
+    jenkins_worker.vm.provision "shell", inline: <<-SHELL
+      hostnamectl set-hostname jenkins-worker --static --no-ask-password
+      apt update
+      apt install net-tools openjdk-21-jdk-headless docker.io -y
+      usermod -aG docker vagrant
+      systemctl restart docker
+
+      cat /home/vagrant/jenkins_worker_ssh/jenkins_worker.pub >> /home/vagrant/.ssh/authorized_keys
+    SHELL
+    end
+
+
+  end

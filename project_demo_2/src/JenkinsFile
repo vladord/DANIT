@@ -1,0 +1,33 @@
+pipeline {
+    agent {label "jenkins-worker"}
+    environment {
+        DOCKERHUB_CREDENTIALS = credentials('dockerhub')
+    }
+    stages {
+        stage('Build') {
+            steps {
+                git branch: 'main', url: 'https://github.com/vladord/ForStep2.git'
+                sh "docker build -t vladordtest/forstep2:latest -t vladordtest/forstep2:v1.${BUILD_NUMBER} ."
+            }
+        }
+        stage('tests') {
+            steps{
+                script {
+                    try {                
+                        sh "docker run -dit -v /var/run/docker.sock:/var/run/docker.sock --name forstep2 -p 50000:50000 -p 3000:3000 vladordtest/forstep2:latest -c 'test ./tests/app.test.js'"
+                        //sh "exit 1"
+                    } catch (err) {
+                        currentBuild.result = 'ABORTED'
+                        error ("Tests failed")
+                    } 
+                }                
+            }
+        }
+        stage('docker-push') {
+            steps {
+                sh "echo ${DOCKERHUB_CREDENTIALS_PSW} | docker login -u vladordtest --password-stdin"                
+                sh "docker push vladordtest/forstep2:latest"
+            }
+        }
+    }
+}
