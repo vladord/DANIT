@@ -4,3 +4,12 @@ DanIT.code-workspace
 env.*
 project_demo/src/.vagrant/*
 .venv
+project_demo_2/src/jenkins_master/jenkins_password
+project_demo_2/src/jenkins_master/jenkins_worker.pub
+homework12/src/students.csv
+
+.terraform
+.terraform.lock.hcl
+.terraform.tfstate.lock.info
+terraform.tfstate
+terraform.tfstate.backup
