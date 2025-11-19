@@ -1,0 +1,25 @@
+---
+- name: Install and configure webserver
+  hosts: public
+  become: true
+
+  tasks:
+    - name: Install packages
+      apt:
+        name: "{{ item }}" 
+        update_cache: true
+        state: present
+      loop:
+        - curl
+        - docker.io
+        - net-tools
+
+    - name: Docker runner
+      community.docker.docker_container:
+        name: petclinic
+        image: nginx:mainline        
+        ports: 
+          - "80:80"
+        state: started
+        restart: true
+
