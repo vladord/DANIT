@@ -13,3 +13,4 @@ homework12/src/students.csv
 .terraform.tfstate.lock.info
 terraform.tfstate
 terraform.tfstate.backup
+.ssh

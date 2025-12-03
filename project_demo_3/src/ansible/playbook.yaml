@@ -1,0 +1,72 @@
+---
+- name: Install and configure webserver
+  hosts: petclinic
+  become: true
+
+  vars:
+    jenkins_repo_url: "https://pkg.jenkins.io/debian-stable"
+    jenkins_key_url: "https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key"
+
+  tasks:
+    - name: Install packages
+      apt:
+        name: "{{ item }}" 
+        update_cache: true
+        state: present
+      loop:
+        - nginx
+        - curl
+        - docker.io
+        - net-tools
+        - openjdk-21-jre
+
+    - name: Ensure nginx running
+      service:
+        name: nginx
+        state: started
+        enabled: true    
+
+    - name: Copy nginx conf
+      copy:
+        src: ./templates/nginx.conf
+        dest: /etc/nginx/sites-available/default
+      notify: restart nginx
+      
+    - name: Add Jenkins repo key
+      get_url:
+        url: "{{ jenkins_key_url }}"
+        dest: /usr/share/keyrings/jenkins-keyring.asc
+        mode: '0644'
+
+    - name: Add Jenkins repository
+      apt_repository:
+        repo: "deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] {{ jenkins_repo_url }} binary/"
+        state: present
+        update_cache: yes
+
+    - name: Install Jenkins
+      apt:
+        name: jenkins
+        state: present
+
+    - name: Ensure Jenkins is started and enabled
+      service:
+        name: jenkins
+        state: started
+        enabled: yes
+
+    - name: Get initial admin password
+      command: "cat /var/lib/jenkins/secrets/initialAdminPassword"
+      register: jenkins_admin_password
+      changed_when: false
+
+    - name: Show initial Jenkins admin password
+      debug:
+        msg: "Initial Jenkins admin password: {{ jenkins_admin_password.stdout }}"
+
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted  
